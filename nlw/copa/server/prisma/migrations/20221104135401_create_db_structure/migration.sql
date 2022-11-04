@@ -20,7 +20,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Game" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "date" DATETIME NOT NULL,
-    "fristTeamCountryCode" TEXT NOT NULL,
+    "firstTeamCountryCode" TEXT NOT NULL,
     "secondteamCountryCode" TEXT NOT NULL
 );
 

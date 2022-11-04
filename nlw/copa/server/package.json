@@ -9,6 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "prisma": {
+    "seed": "tsx /Users/diazpedro081/estudos/Rocketseat-NLW-Copa/nlw/copa/server/prisma/seed.ts"
+  },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^9.1.7",
     "prisma": "^4.5.0",
