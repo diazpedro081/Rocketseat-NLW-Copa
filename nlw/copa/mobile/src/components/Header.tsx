@@ -19,7 +19,7 @@ export function Header({ title, showBackButton = false, showShareButton = false,
         {
           showBackButton
             ? <ButtonIcon icon={CaretLeft} onPress={() => navigate('pools')}/>
-            : <EmptyBoxSpace />
+            : <EmptyBoxSpace  />
         }
 
         <Text color="white" fontFamily="medium" fontSize="md" textAlign="center">
