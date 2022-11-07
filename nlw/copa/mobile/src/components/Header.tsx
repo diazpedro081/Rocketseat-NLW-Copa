@@ -1,7 +1,7 @@
-import { Text, HStack, Box } from 'native-base';
-import { CaretLeft, Export } from 'phosphor-react-native';
-import { useNavigation } from '@react-navigation/native'
-import { ButtonIcon } from './ButtonIcon';
+import { Text, HStack, Box } from "native-base";
+import { CaretLeft, Export } from "phosphor-react-native";
+import { useNavigation } from "@react-navigation/native"
+import { ButtonIcon } from "./ButtonIcon";
 
 interface Props {
   title: string;
@@ -10,7 +10,7 @@ interface Props {
   onShare?: () => void
 }
 
-export function Header({ title, showBackButton = false, showShareButton = false, onShare}: Props) {
+export function Header({ title, showBackButton = false, showShareButton = false, onShare }: Props) {
   const EmptyBoxSpace = () => (<Box w={6} h={6} />);
   const { navigate } = useNavigation()
   return (
@@ -18,8 +18,8 @@ export function Header({ title, showBackButton = false, showShareButton = false,
       <HStack w="full" alignItems="center" justifyContent="space-between">
         {
           showBackButton
-            ? <ButtonIcon icon={CaretLeft} onPress={() => navigate('pools')}/>
-            : <EmptyBoxSpace  />
+            ? <ButtonIcon icon={CaretLeft} onPress={() => navigate("pools")} />
+            : <EmptyBoxSpace />
         }
 
         <Text color="white" fontFamily="medium" fontSize="md" textAlign="center">
@@ -29,7 +29,7 @@ export function Header({ title, showBackButton = false, showShareButton = false,
         {
           showShareButton
             ?
-            <ButtonIcon icon={Export} onPress={onShare}/>
+            <ButtonIcon icon={Export} onPress={onShare} />
             :
             <EmptyBoxSpace />
         }

@@ -1,8 +1,11 @@
-import { Button, HStack, Text, useTheme, VStack } from 'native-base';
-import { X, Check } from 'phosphor-react-native';
-import { getName } from 'country-list';
+import { Button, HStack, Text, useTheme, VStack } from "native-base";
+import { X, Check } from "phosphor-react-native";
+import { getName } from "country-list";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
+import dayjs from "dayjs";
+import ptBR from "dayjs/locale/pt-br";
 
-import { Team } from './Team';
+import { Team } from "./Team";
 
 interface GuessProps {
     id: string;
@@ -15,8 +18,10 @@ interface GuessProps {
 
 export interface GameProps {
     id: string;
+    date: Date;
     firstTeamCountryCode: string;
     secondTeamCountryCode: string;
+
     guess: null | GuessProps;
 };
 
@@ -25,15 +30,21 @@ interface Props {
     onGuessConfirm: () => void;
     setFirstTeamPoints: (value: string) => void;
     setSecondTeamPoints: (value: string) => void;
+
 };
 
 export function Game({ data, setFirstTeamPoints, setSecondTeamPoints, onGuessConfirm }: Props) {
     const { colors, sizes } = useTheme();
+    dayjs.extend(isSameOrAfter)
+
+    const now = new Date()
+    const isGameExpired = dayjs(now).isSameOrAfter(data.date)
+    const when = dayjs(data.date).locale(ptBR).format("DD [de] MMMM [de] YYYY [ás] HH:mm[H]");
 
     return (
         <VStack
             w="full"
-            bgColor="gray.800"
+            bgColor={isGameExpired ? "red.500" : "gray.800"}
             rounded="sm"
             alignItems="center"
             borderBottomWidth={3}
@@ -46,7 +57,7 @@ export function Game({ data, setFirstTeamPoints, setSecondTeamPoints, onGuessCon
             </Text>
 
             <Text color="gray.200" fontSize="xs">
-                22 de Novembro de 2022 às 16:00h
+                {when}
             </Text>
 
             <HStack mt={4} w="full" justifyContent="space-between" alignItems="center">
@@ -54,6 +65,7 @@ export function Game({ data, setFirstTeamPoints, setSecondTeamPoints, onGuessCon
                     code={data.firstTeamCountryCode}
                     position="right"
                     onChangeText={setFirstTeamPoints}
+                    isGameExpired={isGameExpired}
                 />
 
                 <X color={colors.gray[300]} size={sizes[6]} />
@@ -62,11 +74,12 @@ export function Game({ data, setFirstTeamPoints, setSecondTeamPoints, onGuessCon
                     code={data.secondTeamCountryCode}
                     position="left"
                     onChangeText={setSecondTeamPoints}
+                    isGameExpired={isGameExpired}
                 />
             </HStack>
 
             {
-                !data.guess &&
+                (!data.guess && !isGameExpired) &&
                 <Button size="xs" w="full" bgColor="green.500" mt={4} onPress={onGuessConfirm}>
                     <HStack alignItems="center">
                         <Text color="white" fontSize="xs" fontFamily="heading" mr={3}>
